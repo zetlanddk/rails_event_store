@@ -35,7 +35,7 @@ module RailsEventStore
       end
 
       def load_events_batch(stream_name, start_point, count)
-        adapter.where('id >= ? AND stream = ?', start_point, stream_name).limit(count).map &method(:build_event_entity)
+        adapter.where('id > ? AND stream = ?', start_point, stream_name).order('id ASC').limit(count).map &method(:build_event_entity)
       end
 
       private
